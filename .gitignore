@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Modelos salvos com joblib
+/modelos/*.joblib
