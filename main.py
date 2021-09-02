@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, status
 from manifestacao import Manifestacao
 from joblib import load
 import classificador as clf
@@ -18,16 +18,6 @@ async def load_model():
     clf.model_assunto_id = load('modelos/2021-08-23_assuntos.joblib')
 
 
-# @app.post("/predict_assunto", tags=["classificadores", "assunto"])
-# async def predict_assunto(manifestacao: Manifestacao,
-#          n_assuntos: int = Query(10, title="Número de assuntos a retornar")):
-#     data = dict(manifestacao)['relato']
-#     # n_assuntos = dict(manifestacao)['n_assuntos']
-#     assunto = clf.model_assunto.predict_proba([data])
-#     top_n = np.argsort(assunto)[:n_assuntos].tolist()
-#     return clf.model_assunto.classes_[tuple(top_n)].tolist()[:-n_assuntos:-1]
-
-
 @app.post("/predict_assunto_id", tags=['classificadores', "assunto"])
 async def predict_assunto_id(manifestacao: Manifestacao,
          n_assuntos: int = Query(10, title="Número de assuntos a retornar")):
@@ -43,3 +33,7 @@ async def predict_classificacao(manifestacao: Manifestacao):
     data = dict(manifestacao)['relato']
     resposta ={"classificação": clf.model_classificacao.predict([data]).tolist()}
     return resposta
+
+@app.get("/health_check", tags=['meta', 'status'])
+async def health_check(status_code=status.HTTP_200_OK):
+    return True
