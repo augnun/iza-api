@@ -13,9 +13,9 @@ async def load_model():
     """
     Carrega os modelos de classificacao e assunto
     """
-    clf.model_classificacao = load('modelos/RF_class.joblib')
-    # clf.model_assunto = load('modelos/calib_assuntos_desc.joblib')
-    clf.model_assunto_id = load('modelos/2021-08-23_assuntos.joblib')
+    clf.model_classificacao = load('modelos/2021-10-07_classificacao.joblib')
+    clf.model_assunto_id = load('modelos/2021-10-06_assuntos.joblib')
+    clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
 
 
 @app.post("/predict_assunto_id", tags=['classificadores', "assunto"])
@@ -31,7 +31,13 @@ async def predict_assunto_id(manifestacao: Manifestacao,
           tags=["classificadores", "classificação"])
 async def predict_classificacao(manifestacao: Manifestacao):
     data = dict(manifestacao)['relato']
-    resposta ={"classificação": clf.model_classificacao.predict([data]).tolist()}
+    resposta = {"classificação": clf.model_classificacao.predict([data]).tolist()}
+    return resposta
+
+@app.post("/predict_unidade", tags=['classificadores', 'relato', 'unidade'])
+async def predict_unidade(manifestacao: Manifestacao):
+    data = dict(manifestacao)["relato"]
+    resposta = {'unidade': clf.model_unidade.predict([data]).tolist()}
     return resposta
 
 @app.get("/health_check", tags=['meta', 'status'])
