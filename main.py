@@ -18,7 +18,7 @@ async def load_model():
     clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
 
 
-@app.post("/predict_assunto_id", tags=['classificadores', "assunto"])
+@app.post("/predict_assunto_id", tags=['classificadores', "relato", "assunto"])
 async def predict_assunto_id(manifestacao: Manifestacao,
          n_assuntos: int = Query(10, title="Número de assuntos a retornar")):
     data = dict(manifestacao)['relato']
@@ -28,7 +28,7 @@ async def predict_assunto_id(manifestacao: Manifestacao,
             'probabilidades': np.sort(assunto).flatten().tolist()[:-n_assuntos:-1]}
 
 @app.post("/predict_classificacao",
-          tags=["classificadores", "classificação"])
+          tags=["classificadores", "classificação", "reato"])
 async def predict_classificacao(manifestacao: Manifestacao):
     data = dict(manifestacao)['relato']
     resposta = {"classificação": clf.model_classificacao.predict([data]).tolist()}
