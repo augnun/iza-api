@@ -14,7 +14,7 @@ async def load_model():
     Carrega os modelos de classificacao e assunto
     """
     clf.model_classificacao = load('modelos/2021-10-07_classificacao.joblib')
-    clf.model_assunto_id = load('modelos/2021-10-06_assuntos.joblib')
+    clf.model_assunto_id = load('modelos/2021-10-15_assuntos.joblib')
     clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
 
 
