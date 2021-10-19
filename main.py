@@ -14,7 +14,7 @@ async def load_model():
     Carrega os modelos de classificacao e assunto
     """
     clf.model_classificacao = load('modelos/2021-10-07_classificacao.joblib')
-    clf.model_assunto_id = load('modelos/2021-10-06_assuntos.joblib')
+    clf.model_assunto_id = load('modelos/2021-10-18_assuntos.joblib')
     clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
 
 
@@ -28,7 +28,7 @@ async def predict_assunto_id(manifestacao: Manifestacao,
             'probabilidades': np.sort(assunto).flatten().tolist()[:-n_assuntos:-1]}
 
 @app.post("/predict_classificacao",
-          tags=["classificadores", "classificação", "reato"])
+          tags=["classificadores", "classificação", "relato"])
 async def predict_classificacao(manifestacao: Manifestacao):
     data = dict(manifestacao)['relato']
     resposta = {"classificação": clf.model_classificacao.predict([data]).tolist()}
