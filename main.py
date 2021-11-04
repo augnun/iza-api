@@ -13,8 +13,9 @@ async def load_model():
     """
     Carrega os modelos de classificacao e assunto
     """
-    clf.model_classificacao = load('modelos/2021-10-07_classificacao.joblib')
-    clf.model_assunto_id = load('modelos/2021-10-18_assuntos.joblib')
+    clf.model_classificacao = load('modelos/2021-10-18_classificacao.joblib')
+    #clf.model_classificacao_fastai = load('modelos/2021-11-04_classificacao_fastai.pkl')
+    clf.model_assunto_id = load('modelos/2021-10-28_assuntos.joblib')
     clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
 
 
@@ -33,6 +34,13 @@ async def predict_classificacao(manifestacao: Manifestacao):
     data = dict(manifestacao)['relato']
     resposta = {"classificação": clf.model_classificacao.predict([data]).tolist()}
     return resposta
+
+#@app.post("/predict_classificacao_fastai",
+#        tags=["classificadores", "classificacao", "relato"])
+#async def predict_classificacao_fastai(manifestacao: Manifestacao):
+#    data = dict(manifestacao)["relato"]
+#    resposta = {"classificacao": clf.model_classificacao_fastai.predict([data])[0].tolist()}
+#    return resposta
 
 @app.post("/predict_unidade", tags=['classificadores', 'relato', 'unidade'])
 async def predict_unidade(manifestacao: Manifestacao):
