@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # Modelos salvos com joblib
+/modelos/*.pkl
 /modelos/*.joblib

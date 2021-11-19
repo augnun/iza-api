@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  iza-api:
+    build: .
+    ports: ['8002:8002']
+    volumes:
+        - ./modelos:/modelos
