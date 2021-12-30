@@ -15,11 +15,10 @@ async def load_model():
     """
     Carrega os modelos de classificacao e assunto
     """
-    #clf.model_classificacao = load('modelos/2021-10-18_classificacao.joblib')
-    # clf.model_classificacao_fastai = load('modelos/2021-11-04_classificacao_fastai.pkl')
-    #clf.model_assunto_id = load('modelos/2021-10-28_assuntos.joblib')
-    clf.model_assunto_fastai = load_learner("modelos/2021-11-19_assuntos_fastai.joblib")
-    #clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
+    clf.model_classificacao = load('modelos/2021-10-18_classificacao.joblib')
+    clf.model_assunto_id = load('modelos/2021-12-05_assuntos.joblib')
+    clf.model_unidade = load("modelos/2021-10-13_unidade.joblib")
+    clf.model_relato_assunto_classificacao = load("modelos/2021-12-29_relato_assunto_classificacao.joblib")
 
 
 @app.post("/predict_assunto_id", tags=['classificadores', "relato", "assunto"])
